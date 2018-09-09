@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 //Importing Files to handle requests of specific route
-const users = require("./routes/users");
-const pets = require("./routes/pets");
+const users = require("./routes/api/users");
+const pets = require("./routes/api/pets");
 
 //Creating a new Express Application
 const app = express();
