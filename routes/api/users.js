@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const keys = require("../../configs/keys");
 
 // Importing Users Model
 const User = require("../../models/User");
@@ -43,5 +44,34 @@ router.post("/register", (req, res) => {
       }
     })
 });
+
+/*
+  Route: Post to api/users/login
+  Description: Login as User
+  Access: public
+*/
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.senha;
+  User.findOne({email})
+    .then(user => {
+      if (!user) res.status(400).json({error: "Usuário não encontrado."});
+      bcrypt.compare(password, user.senha)
+        .then(isMatch => {
+          if (!isMatch) res.status(400).json({error: "Senha incorreta."});
+          const payload = {
+            id: user.id,
+            email: user.email,
+            nome: user.nome
+          }
+          jwt.sign(payload, keys.secretJWT, {expiresIn: "1 day"}, (err, token) => {
+            res.json({
+              success: true,
+              token: `Bearer ${token}`
+            })
+          })
+        })
+    })
+})
 
 module.exports = router;
