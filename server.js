@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Routes
-app.use("/users", users);
-app.use("/pets", pets);
+app.use("/api/users", users);
+app.use("/api/pets", pets);
 
 app.listen(port, () => console.log(`Server in port: ${port}`));
