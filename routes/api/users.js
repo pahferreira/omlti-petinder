@@ -21,7 +21,27 @@ router.get("/test", (req, res) => {
   Access: public
 */
 router.post("/register", (req, res) => {
-
+  User.findOne({email: req.body.email})
+    .then(user => {
+      if (user) {
+        res.status(400).json({error: "Email já cadastrado."});
+      }else {
+        const newUser = new User({
+          nome: req.body.nome,
+          email: req.body.email,
+          senha: req.body.senha
+        });
+        bcrypt.genSalt(10, (error, salt) => {
+          bcrypt.hash(newUser.senha, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.senha = hash            
+            newUser.save()
+              .then(newUser => res.json(newUser))
+              .catch(err => console.log(err))
+          })
+        });
+      }
+    })
 });
 
 module.exports = router;
