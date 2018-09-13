@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 //Importing Files to handle requests of specific route
 const users = require("./routes/api/users");
@@ -24,6 +25,10 @@ mongoose
 //Adding Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//Initializing Passport
+passport.initialize();
+require('./configs/passport')(passport);
 
 //Routes
 app.use("/api/users", users);
