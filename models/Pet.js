@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PetSchema = new Schema({
+  fotos:[String],
   name: {
     type: String,
     required: true
