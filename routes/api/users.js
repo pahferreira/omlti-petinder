@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const keys = require("../../configs/keys");
+const passport = require("passport");
 
 // Importing Users Model
 const User = require("../../models/User");
@@ -14,6 +15,15 @@ const User = require("../../models/User");
 */
 router.get("/test", (req, res) => {
   res.json({ message: "Successful Test to users." });
+});
+
+/*
+  Route: GET to api/users/privatetest
+  Description: Test Private Route to Users
+  Access: private
+*/
+router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req, res) => {
+  res.json({ message: "Successful Test to Private users." });
 });
 
 /*
