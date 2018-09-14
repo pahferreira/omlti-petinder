@@ -1,10 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const passport = require("passport");
 
 //Importing Files to handle requests of specific route
-const users = require("./routes/users");
-const pets = require("./routes/pets");
+const users = require("./routes/api/users");
+const pets = require("./routes/api/pets");
 
 //Creating a new Express Application
 const app = express();
@@ -25,8 +26,12 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//Initializing Passport
+passport.initialize();
+require('./configs/passport')(passport);
+
 //Routes
-app.use("/users", users);
-app.use("/pets", pets);
+app.use("/api/users", users);
+app.use("/api/pets", pets);
 
 app.listen(port, () => console.log(`Server in port: ${port}`));
