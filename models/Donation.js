@@ -18,7 +18,7 @@ const DonationSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "pets"
   },
-  donator: {
+  doador: {
     type: Schema.Types.ObjectId,
     ref: "users"
   }
