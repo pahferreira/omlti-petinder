@@ -5,12 +5,11 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../configs/keys");
 const passport = require("passport");
 
-// Importing Users Model
 const User = require("../../models/User");
 
 /*
   Route: GET to api/users/test
-  Description: Test Route to Users
+  Description: Teste de rota
   Access: public
 */
 router.get("/test", (req, res) => {
@@ -19,7 +18,7 @@ router.get("/test", (req, res) => {
 
 /*
   Route: GET to api/users/privatetest
-  Description: Test Private Route to Users
+  Description: Teste de rotas privadas
   Access: private
 */
 router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -27,8 +26,8 @@ router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req,
 });
 
 /*
-  Route: Post to api/users/register
-  Description: Register an User
+  Route: POST to api/users/register
+  Description: Rota para registro de usuário
   Access: public
 */
 router.post("/register", (req, res) => {
@@ -56,8 +55,8 @@ router.post("/register", (req, res) => {
 });
 
 /*
-  Route: Post to api/users/login
-  Description: Login as User
+  Route: POST to api/users/login
+  Description: Rota para login de usuário
   Access: public
 */
 router.post("/login", (req, res) => {
