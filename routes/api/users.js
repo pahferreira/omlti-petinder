@@ -84,4 +84,13 @@ router.post("/login", (req, res) => {
     })
 })
 
+/*
+  Route: GET to api/users/current
+  Description: Rota para perfil do usuário que está logado
+  Access: private
+*/
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json(req.user);
+});
+
 module.exports = router;
