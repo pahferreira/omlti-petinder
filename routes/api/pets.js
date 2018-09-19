@@ -32,4 +32,19 @@ router.post('/create', passport.authenticate('jwt', { session: false }), (req, r
     .catch(err => console.log(err));
 })
 
+/*
+  Route: GET to api/pets/:petID
+  Description: Rota para retornar as infos de um pet
+  Access: public
+*/
+router.get("/:petID", (req, res) => {
+  Pet.findById(req.params.petID)
+    .then(pet => {
+      if (pet) res.json(pet);
+      res.status(404).json({ message: "Pet não encontrado." });
+    })
+    .catch(err => console.log(err));
+});
+
+
 module.exports = router;
