@@ -40,10 +40,34 @@ router.post('/create', passport.authenticate('jwt', { session: false }), (req, r
 router.get("/:petID", (req, res) => {
   Pet.findById(req.params.petID)
     .then(pet => {
-      if (pet) res.json(pet);
-      res.status(404).json({ message: "Pet não encontrado." });
-    })
-    .catch(err => console.log(err));
+    if (!pet) res.status(404).json({ message: "Pet não encontrado." });
+      res.json(pet);
+    });
+});
+
+/*
+  Route: POST to api/pets/:petID
+  Description: Rota para atualizar as infos de um pet
+  Access: private
+*/
+router.post("/:petID", passport.authenticate('jwt', { session: false }),(req, res) => {
+  const petInfos = {};
+  if (req.body.nome) petInfos.nome = req.body.nome;
+  if (req.body.sexo) petInfos.sexo = req.body.sexo;
+  if (req.body.descricao) petInfos.descricao = req.body.descricao;
+  if (req.body.fotos) petInfos.fotos = req.body.fotos;
+  if (req.body.porte) petInfos.porte = req.body.porte;
+
+  Pet.findById(req.params.petID)
+    .then(pet => {
+      if (!pet) return res.status(404).json({ message: "Pet não encontrado." });
+      if (!pet.responsavel == req.user.id) {
+        res.status(404).json({ message: "Não existe responsável com esse pet." });
+      } else {
+        Pet.findByIdAndUpdate(pet.id, petInfos, { new: true })
+          .then(pet => res.json(pet));
+      }
+    });
 });
 
 
