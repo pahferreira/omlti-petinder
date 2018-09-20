@@ -14,6 +14,18 @@ router.get("/test", (req, res) => {
 });
 
 /*
+  Route: GET to api/pets/all
+  Description: Retorna todos os pets cadastrados
+  Access: public
+*/
+router.get("/all", (req, res) => {
+  Pet.find()
+    .then(pets => res.json(pets))
+    .catch(err => console.log(err));
+});
+
+
+/*
   Route: POST to api/pets/create
   Description: Rota para criar pet
   Access: private
@@ -70,5 +82,22 @@ router.post("/:petID", passport.authenticate('jwt', { session: false }),(req, re
     });
 });
 
+/*
+  Route: DELETE to api/pets/:petID
+  Description: Rota para deletar um pet
+  Access: private
+*/
+router.delete("/:petID", passport.authenticate('jwt', { session: false }), (req, res) => {
+  Pet.findById(req.params.petID)
+    .then(pet => {
+      if (!pet) return res.status(404).json({ message: "Pet não encontrado." });
+      if (!pet.responsavel == req.user.id) {
+        res.status(404).json({ message: "Não existe responsável com esse pet." });
+      } else {
+        Pet.findByIdAndDelete(pet.id)
+          .then(pet => res.json({success: true, pet}));
+      }
+    }).catch(err => console.log(err));
+});
 
 module.exports = router;
