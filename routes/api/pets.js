@@ -24,6 +24,17 @@ router.get("/all", (req, res) => {
     .catch(err => console.log(err));
 });
 
+/*
+  Route: GET to api/pets/available
+  Description: Retorna todos os pets cadastrados e não adotados
+  Access: public
+*/
+router.get("/available", (req, res) => {
+  Pet.find({ adotado: false })
+    .then(pets => res.json(pets))
+    .catch(err => console.log(err));
+});
+
 
 /*
   Route: POST to api/pets/create
