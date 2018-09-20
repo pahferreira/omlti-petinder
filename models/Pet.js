@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const PetSchema = new Schema({
+  responsavel: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+    required: true
+  },
   fotos:{
     type: [String],
     required: true
@@ -27,6 +32,10 @@ const PetSchema = new Schema({
   saude: {
     castrado: Boolean,
     vacinas: Boolean
+  },
+  adotado: {
+    type: Boolean,
+    default: false
   }
 });
 
