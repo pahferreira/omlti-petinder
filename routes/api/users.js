@@ -107,13 +107,13 @@ router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) 
   if (req.body.endereco){
     newInfos.endereco = {};
     if(req.body.endereco.bairro) {
-      newInfo.endereco.bairro = req.body.bairro;
+      newInfo.endereco.bairro = req.body.endereco.bairro;
     }
     if(req.body.endereco.rua) {
-      newInfo.endereco.rua = req.body.rua;
+      newInfo.endereco.rua = req.body.endereco.rua;
     }
     if(req.body.endereco.cidade) {
-      newInfo.endereco.cidade = req.body.cidade;
+      newInfo.endereco.cidade = req.body.endereco.cidade;
     }
   }
   User.findById(req.body.id)
