@@ -8,7 +8,7 @@ const router = express.Router();
   Access: public
 */
 router.get("/test", (req, res) => {
-  res.json({ message: "Successful Test to donation." });
+  res.json({ message: "Teste com sucesso para doação." });
 });
 
 module.exports = router;
