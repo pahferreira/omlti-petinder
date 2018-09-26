@@ -91,4 +91,37 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   res.json(req.user);
 });
 
+/*
+  Route: POST to api/users/edit
+  Description: Rota para editar o perfil do usuário logado
+  Access: private
+*/
+router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) => {
+  const newInfo = {};
+  if(req.body.foto) newInfo.foto = req.body.foto;
+  if(req.body.nome) newInfo.nome = req.body.nome;
+  if(req.body.sexo) newInfo.sexo = req.body.sexo;
+  if(req.body.tipoDeResidencia) newInfo.tipoDeResidencia = req.body.tipoDeResidencia;
+  if (req.body.endereco){
+    newInfos.endereco = {};
+    if(req.body.endereco.bairro) {
+      newInfo.endereco.bairro = req.body.endereco.bairro;
+    }
+    if(req.body.endereco.rua) {
+      newInfo.endereco.rua = req.body.endereco.rua;
+    }
+    if(req.body.endereco.cidade) {
+      newInfo.endereco.cidade = req.body.endereco.cidade;
+    }
+  }
+  User.findById(req.body.id)
+    .then(user => {
+      if (!user) return res.status(404).json({ message: "Usuário não encontrado." });
+      else {
+        User.findByIdAndUpdate(req.body.id, newInfo, { new: true })
+          .then(updatedUser => res.json(updatedUser));
+      }
+  });
+});
+
 module.exports = router;
