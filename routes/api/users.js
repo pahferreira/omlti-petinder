@@ -6,24 +6,22 @@ const keys = require("../../configs/keys");
 const passport = require("passport");
 
 const User = require("../../models/User");
+const UsersController = require("../../controllers/usersController");
+
 
 /*
   Route: GET para api/users/test
   Description: Teste de rota
   Access: public
 */
-router.get("/test", (req, res) => {
-  res.json({ message: "Teste com Sucesso para Users." });
-});
+router.get("/test", UsersController.test);
 
 /*
   Route: GET para api/users/privatetest
   Description: Teste de rotas privadas
   Access: private
 */
-router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.json({ message: "Teste com Sucesso para Users. (privado)" });
-});
+router.get("/privatetest", passport.authenticate('jwt', {session: false}), UsersController.testPrivate);
 
 /*
   Route: POST para api/users/register
