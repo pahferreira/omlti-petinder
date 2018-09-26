@@ -6,6 +6,7 @@ const passport = require("passport");
 //Importing Files to handle requests of specific route
 const users = require("./routes/api/users");
 const pets = require("./routes/api/pets");
+const donations = require("./routes/api/donations");
 
 //Creating a new Express Application
 const app = express();
@@ -33,5 +34,6 @@ require('./configs/passport')(passport);
 //Routes
 app.use("/api/users", users);
 app.use("/api/pets", pets);
+app.use("/api/donations", donations);
 
 app.listen(port, () => console.log(`Server in port: ${port}`));
