@@ -7,6 +7,7 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const pets = require("./routes/api/pets");
 const donations = require("./routes/api/donations");
+const adoptions = require("./routes/api/adoptions");
 
 //Creating a new Express Application
 const app = express();
@@ -35,5 +36,6 @@ require('./configs/passport')(passport);
 app.use("/api/users", users);
 app.use("/api/pets", pets);
 app.use("/api/donations", donations);
+app.use("/api/adoptions", adoptions);
 
 app.listen(port, () => console.log(`Server in port: ${port}`));
