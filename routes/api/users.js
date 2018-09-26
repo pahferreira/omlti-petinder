@@ -8,25 +8,25 @@ const passport = require("passport");
 const User = require("../../models/User");
 
 /*
-  Route: GET to api/users/test
+  Route: GET para api/users/test
   Description: Teste de rota
   Access: public
 */
 router.get("/test", (req, res) => {
-  res.json({ message: "Successful Test to users." });
+  res.json({ message: "Teste com Sucesso para Users." });
 });
 
 /*
-  Route: GET to api/users/privatetest
+  Route: GET para api/users/privatetest
   Description: Teste de rotas privadas
   Access: private
 */
 router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.json({ message: "Successful Test to Private users." });
+  res.json({ message: "Teste com Sucesso para Users. (privado)" });
 });
 
 /*
-  Route: POST to api/users/register
+  Route: POST para api/users/register
   Description: Rota para registro de usuário
   Access: public
 */
@@ -55,7 +55,7 @@ router.post("/register", (req, res) => {
 });
 
 /*
-  Route: POST to api/users/login
+  Route: POST para api/users/login
   Description: Rota para login de usuário
   Access: public
 */
@@ -85,7 +85,7 @@ router.post("/login", (req, res) => {
 })
 
 /*
-  Route: GET to api/users/current
+  Route: GET para api/users/current
   Description: Rota para perfil do usuário que está logado
   Access: private
 */

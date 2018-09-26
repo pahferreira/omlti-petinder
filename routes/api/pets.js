@@ -5,16 +5,16 @@ const passport = require("passport");
 const Pet = require("../../models/Pet");
 
 /*
-  Route: GET to api/pets/test
-  Description: Test Route to Pets
+  Route: GET para api/pets/test
+  Description: Rota teste para pets
   Access: public
 */
 router.get("/test", (req, res) => {
-  res.json({ message: "Successful Test to pets." });
+  res.json({ message: "Teste com Sucesso para Pets." });
 });
 
 /*
-  Route: GET to api/pets/all
+  Route: GET para api/pets/all
   Description: Retorna todos os pets cadastrados
   Access: public
 */
@@ -25,7 +25,7 @@ router.get("/all", (req, res) => {
 });
 
 /*
-  Route: GET to api/pets/available
+  Route: GET para api/pets/available
   Description: Retorna todos os pets cadastrados e não adotados
   Access: public
 */
@@ -37,7 +37,7 @@ router.get("/available", (req, res) => {
 
 
 /*
-  Route: POST to api/pets/create
+  Route: POST para api/pets/create
   Description: Rota para criar pet
   Access: private
 */
@@ -56,7 +56,7 @@ router.post('/create', passport.authenticate('jwt', { session: false }), (req, r
 })
 
 /*
-  Route: GET to api/pets/:petID
+  Route: GET para api/pets/:petID
   Description: Rota para retornar as infos de um pet
   Access: public
 */
@@ -69,7 +69,7 @@ router.get("/:petID", (req, res) => {
 });
 
 /*
-  Route: POST to api/pets/:petID
+  Route: POST para api/pets/:petID
   Description: Rota para atualizar as infos de um pet
   Access: private
 */
@@ -94,7 +94,7 @@ router.post("/:petID", passport.authenticate('jwt', { session: false }),(req, re
 });
 
 /*
-  Route: DELETE to api/pets/:petID
+  Route: DELETE para api/pets/:petID
   Description: Rota para deletar um pet
   Access: private
 */

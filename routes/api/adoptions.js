@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 /*
-  Route: GET to api/adoptions/test
+  Route: GET para api/adoptions/test
   Description: Rota teste para adoção
   Access: public
 */
