@@ -3,35 +3,39 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-//Importing Files to handle requests of specific route
+//Importação dos handles para as rotas específicas.
 const users = require("./routes/api/users");
 const pets = require("./routes/api/pets");
+const donations = require("./routes/api/donations");
+const adoptions = require("./routes/api/adoptions");
 
-//Creating a new Express Application
+//Criando a aplicação Express
 const app = express();
-//Choosing the port
+//Escolhendo a porta da aplicação
 const port = process.env.PORT || 3000;
 
-//Connecting to database
+//Conectando ao banco de dados
 const db = require("./configs/keys").mongoURI;
 mongoose
   .connect(
     db,
     { useNewUrlParser: true }
   )
-  .then(() => console.log("Database Connected."))
+  .then(() => console.log("Banco de Dados Conectado."))
   .catch(err => console.log(err));
 
-//Adding Body Parser Middleware
+//Adicionando o middleware do BodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Initializing Passport
+//Iniciando o Passport para utilizar nas autenticações
 passport.initialize();
 require('./configs/passport')(passport);
 
-//Routes
+//Rotas
 app.use("/api/users", users);
 app.use("/api/pets", pets);
+app.use("/api/donations", donations);
+app.use("/api/adoptions", adoptions);
 
-app.listen(port, () => console.log(`Server in port: ${port}`));
+app.listen(port, () => console.log(`Server rodando na porta: ${port}`));

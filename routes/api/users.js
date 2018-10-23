@@ -5,30 +5,27 @@ const jwt = require("jsonwebtoken");
 const keys = require("../../configs/keys");
 const passport = require("passport");
 
-// Importing Users Model
 const User = require("../../models/User");
+const UsersController = require("../../controllers/usersController");
+
 
 /*
-  Route: GET to api/users/test
-  Description: Test Route to Users
+  Route: GET para api/users/test
+  Description: Teste de rota
   Access: public
 */
-router.get("/test", (req, res) => {
-  res.json({ message: "Successful Test to users." });
-});
+router.get("/test", UsersController.test);
 
 /*
-  Route: GET to api/users/privatetest
-  Description: Test Private Route to Users
+  Route: GET para api/users/privatetest
+  Description: Teste de rotas privadas
   Access: private
 */
-router.get("/privatetest", passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.json({ message: "Successful Test to Private users." });
-});
+router.get("/privatetest", passport.authenticate('jwt', {session: false}), UsersController.testPrivate);
 
 /*
-  Route: Post to api/users/register
-  Description: Register an User
+  Route: POST para api/users/register
+  Description: Rota para registro de usuário
   Access: public
 */
 router.post("/register", (req, res) => {
@@ -56,8 +53,8 @@ router.post("/register", (req, res) => {
 });
 
 /*
-  Route: Post to api/users/login
-  Description: Login as User
+  Route: POST para api/users/login
+  Description: Rota para login de usuário
   Access: public
 */
 router.post("/login", (req, res) => {
@@ -84,5 +81,47 @@ router.post("/login", (req, res) => {
         })
     })
 })
+
+/*
+  Route: GET para api/users/current
+  Description: Rota para perfil do usuário que está logado
+  Access: private
+*/
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json(req.user);
+});
+
+/*
+  Route: POST to api/users/edit
+  Description: Rota para editar o perfil do usuário logado
+  Access: private
+*/
+router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) => {
+  const newInfo = {};
+  if(req.body.foto) newInfo.foto = req.body.foto;
+  if(req.body.nome) newInfo.nome = req.body.nome;
+  if(req.body.sexo) newInfo.sexo = req.body.sexo;
+  if(req.body.tipoDeResidencia) newInfo.tipoDeResidencia = req.body.tipoDeResidencia;
+  if (req.body.endereco){
+    newInfos.endereco = {};
+    if(req.body.endereco.bairro) {
+      newInfo.endereco.bairro = req.body.endereco.bairro;
+    }
+    if(req.body.endereco.rua) {
+      newInfo.endereco.rua = req.body.endereco.rua;
+    }
+    if(req.body.endereco.cidade) {
+      newInfo.endereco.cidade = req.body.endereco.cidade;
+    }
+  }
+  User.findById(req.body.id)
+    .then(user => {
+      if (!user) return res.status(404).json({ message: "Usuário não encontrado." });
+      else {
+        User.findByIdAndUpdate(req.body.id, newInfo, { new: true })
+          .then(updatedUser => res.json(updatedUser));
+      }
+  });
+});
 
 module.exports = router;
