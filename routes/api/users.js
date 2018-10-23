@@ -101,7 +101,6 @@ router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) 
   if(req.body.foto) newInfo.foto = req.body.foto;
   if(req.body.nome) newInfo.nome = req.body.nome;
   if(req.body.sexo) newInfo.sexo = req.body.sexo;
-  if(req.body.tipoDeResidencia) newInfo.tipoDeResidencia = req.body.tipoDeResidencia;
   if (req.body.endereco){
     newInfos.endereco = {};
     if(req.body.endereco.bairro) {
@@ -112,6 +111,18 @@ router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) 
     }
     if(req.body.endereco.cidade) {
       newInfo.endereco.cidade = req.body.endereco.cidade;
+    }
+    if(req.body.endereco.num) {
+      newInfo.endereco.num = req.body.endereco.num;
+    }
+    if(req.body.endereco.uf) {
+      newInfo.endereco.uf = req.body.endereco.uf;
+    }
+    if(req.body.endereco.comp) {
+      newInfo.endereco.comp = req.body.endereco.comp;
+    }
+    if(req.body.endereco.tipo) {
+      newInfo.endereco.tipo = req.body.endereco.tipo;
     }
   }
   User.findById(req.body.id)
