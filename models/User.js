@@ -13,6 +13,9 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  telefone: {
+    type: String
+  },
   senha: {
     type: String,
     required: true
@@ -20,13 +23,18 @@ const UserSchema = new Schema({
   sexo: {
     type: String
   },
-  tipoDeResidencia: {
-    type: String
-  },
   endereco: {
     bairro: String,
     rua: String,
-    cidade: String
+    cidade: String,
+    num: Number,
+    uf: String,
+    comp: String,
+    coord: {
+      lat: Number,
+      lon: Number
+    },
+    tipo: String
   }
 });
 

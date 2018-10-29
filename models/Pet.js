@@ -30,8 +30,14 @@ const PetSchema = new Schema({
     required: true
   },
   saude: {
-    castrado: Boolean,
-    vacinas: Boolean
+    castrado: {
+      type: Boolean,
+      required: true
+    },
+    vacinas: {
+      type: Boolean,
+      required: true
+    }
   },
   adotado: {
     type: Boolean,
