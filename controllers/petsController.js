@@ -1,4 +1,4 @@
-const Pet = require("../../models/Pet");
+const Pet = require("../models/Pet");
 
 
 exports.test = (req, res) => {
@@ -50,6 +50,11 @@ exports.updatePetById = (req, res) => {
   if (req.body.descricao) petInfos.descricao = req.body.descricao;
   if (req.body.fotos) petInfos.fotos = req.body.fotos;
   if (req.body.porte) petInfos.porte = req.body.porte;
+  if (req.body.castrado || req.body.vacinas) {
+    petInfos.saude = {};
+    if (req.body.castrado) petInfos.saude.castrado = req.body.castrado;
+    if (req.body.vacinas) petInfos.saude.vacinas = req.body.vacinas;
+  }
 
   Pet.findById(req.params.petID)
     .then(pet => {
