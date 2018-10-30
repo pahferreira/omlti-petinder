@@ -11,7 +11,8 @@ const imgSize = {
 const divStyle = {
     display: 'inline-block',
     textAlign: 'center',
-    marginBottom: 10
+	marginBottom: 50,
+	marginTop: 50
 }
 
 export default  (props) => {

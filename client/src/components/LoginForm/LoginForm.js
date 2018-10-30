@@ -19,12 +19,12 @@ class LoginForm extends Component {
 							Quero me cadastrar
 					</Typography>
 						<Typography align="center">
-							<a href="#">
+							<a href="/">
 								Cadastrar com Facebook
-						</a>
+							</a>
 						</Typography>
 						<Typography align="center">
-							<a href="#">
+							<a href="/cadastrar">
 								Cadastrar com e-mail
 						</a>
 						</Typography>
@@ -34,7 +34,7 @@ class LoginForm extends Component {
 							Já possuo cadastro
 					</Typography>
 						<Typography align="center">
-							<a href="#">
+							<a href="/">
 								Acessar com Facebook
 						</a>
 						</Typography>
@@ -57,7 +57,7 @@ class LoginForm extends Component {
 						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.handleClick(event)}>Entrar</Button>
 						<br />
 						<Typography align="center">
-							<a href="#">
+							<a href="/">
 								Esqueci minha senha
 						</a>
 						</Typography>

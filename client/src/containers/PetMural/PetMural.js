@@ -1,7 +1,6 @@
 import React from "react";
-import PetAvatar from "./../PetAvatar/PetAvatar"
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import PetAvatar from "../../components/PetAvatar/PetAvatar"
+import { Grid, Button } from '@material-ui/core';
 
 
 export default class PetMural extends React.Component {
@@ -24,21 +23,20 @@ export default class PetMural extends React.Component {
 	}
 
 	buildGrid() {
-		return this.state.pets.map(pet => <Grid xs={8} sm={3}><PetAvatar name={pet.nome} img={pet.fotos} /></Grid>) 
+		return this.state.pets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} name={pet.nome} img={pet.fotos} /> </Grid>)
 	}
 
 	render() {
-
-		let result = <Grid container xs={10} sm={12} justify="center" alignItems="center" direction="column" >
-			<Grid container item>
-				{ this.buildGrid() }
+		return (
+			<Grid container justify="center" alignItems="center" direction="column" >
+				<Grid container item>
+					{this.buildGrid()}
+				</Grid>
+				<Grid item>
+					<Button variant="contained" > Ver mais </Button>
+				</Grid>
 			</Grid>
-			<Grid item alignItems="center">
-				<Button variant="contained" > Ver mais </Button>
-			</Grid>
-		</Grid>
-
-		return (result)
+		);
 	}
 
 	requestPets() {
