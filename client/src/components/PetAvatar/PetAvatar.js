@@ -1,6 +1,6 @@
 import React from "react";
 import  Avatar from '@material-ui/core/Avatar';
-import 'typeface-roboto'
+import 'typeface-roboto';
 import { Typography } from "@material-ui/core";
 
 const imgSize = {
