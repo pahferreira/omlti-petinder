@@ -3,9 +3,7 @@ import { Grid, Button, TextField, Typography } from '@material-ui/core';
 import "./RegisterForm.css";
 
 class RegisterForm extends Component {
-	constructor(props) {
-		super(props);
-	}
+
 	render() {
 		return (
 			<form className="register-container">
@@ -37,7 +35,7 @@ class RegisterForm extends Component {
 						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.handleClick(event)}>Cadastrar</Button>
 						<br />
 						<Typography align="center">
-							<a href="#">
+							<a href="/">
 								Voltar
 							</a>
 						</Typography>
@@ -46,6 +44,7 @@ class RegisterForm extends Component {
 			</form>
 		);
 	}
+
 }
 const style = {
 	margin: 10,

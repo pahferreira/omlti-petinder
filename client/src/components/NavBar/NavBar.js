@@ -5,8 +5,8 @@ import "./NavBar.css"
 
 
 class NavBar extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			anchorEl: null,
 			isOpen: false
@@ -40,7 +40,7 @@ class NavBar extends Component {
 							open={this.state.isOpen}
 							onClose={() => this.handleClose()}
 						>
-							<MenuItem onClick={() => this.handleClose()}>
+							<MenuItem onClick={(e) => this.handleClose(e)}>
 								<Typography variant="overline" color="inherit">
 									Home
 								</Typography>
@@ -64,7 +64,7 @@ class NavBar extends Component {
 						<Typography variant="h6" color="inherit" className="navbar-grow">
 							PeTinder
 						</Typography>
-						<Button variant="outlined" color="inherit">Entrar ou Cadastrar</Button>
+						<Button variant="outlined" href="/login" color="inherit">Entrar ou Cadastrar</Button>
 					</Toolbar>
 				</AppBar>
 			</div>
