@@ -1,0 +1,12 @@
+.navbar-root {
+	flex-grow: 1;
+}
+
+.navbar-grow {
+	flex-grow: 1;
+}
+
+.menu-button {
+	margin-left: -12;
+	margin-right: 20;
+}
