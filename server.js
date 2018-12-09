@@ -12,7 +12,7 @@ const adoptions = require("./routes/api/adoptions");
 //Criando a aplicação Express
 const app = express();
 //Escolhendo a porta da aplicação
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 //Conectando ao banco de dados
 const db = require("./configs/keys").mongoURI;
