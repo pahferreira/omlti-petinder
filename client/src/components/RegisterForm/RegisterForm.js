@@ -23,7 +23,6 @@ class RegisterForm extends Component {
             email: this.state.email,
             senha: this.state.senha,
         }
-        console.log(user)
         axios.post('/api/users/register', user).then(function (response) {
             if(response.status===200){
                 window.alert('Usuário cadastrado com Sucesso.')
@@ -66,7 +65,7 @@ class RegisterForm extends Component {
 							type="password"
 							placeholder="Digite sua senha"
 							label="Senha"
-							OnChange = {this.onChange}
+							onChange = {this.onChange}
 						/>
 						<br />
 						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.onSubmit(event)}>Cadastrar</Button>
