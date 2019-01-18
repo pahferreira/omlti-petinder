@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios"
 import { Grid, Button, TextField, Typography } from '@material-ui/core';
 import "./LoginForm.css";
+import AuthHelper from "./../../util/AuthHelper"
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -25,7 +26,8 @@ class LoginForm extends Component {
 		axios.post('/api/users/login', user).then(function (response) {
 	
             if(response.status===200){
-                window.alert('Login efetuado com sucesso.')
+				window.alert('Login efetuado com sucesso.')
+				AuthHelper.setToken(response.data.token, response.data.id)
                 document.location.href = '/'
 			}
 			if(response.status===400){
