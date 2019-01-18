@@ -1,15 +1,44 @@
 import React, { Component } from "react";
+import axios from "axios"
 import { Grid, Button, TextField, Typography } from '@material-ui/core';
 import "./LoginForm.css";
+import AuthHelper from "./../../util/AuthHelper"
 
 class LoginForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: '',
-			password: ''
+			email: '',
+			senha: ''
 		}
 	}
+
+
+	onSubmit = e => {
+        e.preventDefault()
+        let user = {
+            email: this.state.email,
+            senha: this.state.senha,
+		}
+		
+		console.log(user)
+
+		axios.post('/api/users/login', user).then(function (response) {
+	
+            if(response.status===200){
+				window.alert('Login efetuado com sucesso.')
+				AuthHelper.setToken(response.data.token, response.data.id)
+                document.location.href = '/'
+			}
+			if(response.status===400){
+				console.log(response)
+			}
+		}).catch(response => console.log(response))
+	}
+
+	onChange = (event) => this.setState({ [event.target.name] : event.target.value })
+	
+
 	render() {
 		return (
 			<div className="login-container">
@@ -40,21 +69,23 @@ class LoginForm extends Component {
 						</Typography>
 						<br />
 						<TextField
+							name="email"
 							style={style}
 							placeholder="Digite seu e-mail"
 							label="E-mail"
-							onChange={(event, newValue) => this.setState({ username: newValue })}
+							onChange={this.onChange}
 						/>
 						<br />
 						<TextField
+							name="senha"
 							style={style}
 							type="password"
 							placeholder="Digite sua senha"
 							label="Senha"
-							onChange={(event, newValue) => this.setState({ password: newValue })}
+							onChange={this.onChange}
 						/>
 						<br />
-						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.handleClick(event)}>Entrar</Button>
+						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.onSubmit(event)}>Entrar</Button>
 						<br />
 						<Typography align="center">
 							<a href="/">

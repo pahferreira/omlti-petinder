@@ -4,11 +4,16 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import Favorite from '@material-ui/icons/Favorite';
 import iconsCss from '@fortawesome/fontawesome-free/css/all.css'	
 import iconsJs from '@fortawesome/fontawesome-free/js/all.js'
+import AuthHelper from "./../../util/AuthHelper"
+import axios from "axios"
+
 
 
 class PetForm extends Component {
 
     componentWillMount() {
+
+        AuthHelper.handleLinkAuth()
 
         this.setState({
                     nome: "",                
@@ -17,9 +22,27 @@ class PetForm extends Component {
                     castrado: false,
                     vacinado: false, 
                     personalidade: "",
-                    descricao: ""
+                    porte: ""
                 })
+                
     }
+
+    onSubmit = e => {
+        e.preventDefault()
+        console.log(this.state)
+        
+        let pet = {
+            
+        }
+        axios.post('/api/pets/create', pet).then(function (response) {
+            if(response.status===200){
+                window.alert('Usuário cadastrado com Sucesso.')
+                document.location.href = '/'
+            }
+		})
+    }
+    
+    onChange = (event) => this.setState({ [event.target.name] : event.target.value })
 
     render() {
         return (
@@ -34,7 +57,8 @@ class PetForm extends Component {
                             fullWidth    
                             placeholder="Digite o nome do pet"
                             label="Nome"
-                            onChange={(event, newValue) => this.setState({ nome: newValue })}
+                            name="nome"
+                            onChange={this.onChange}
                             />
                     </FormGroup>
                     <br/>
@@ -52,18 +76,23 @@ class PetForm extends Component {
                         required
                         label="Personalidade"
                         fullWidth
+                        name="personalidade"
                         placeholder="Descreva em uma frase ou palavra a personalidade do PET"
-                        onChange={(event, newValue) => this.setState({personalidade: newValue})}
+                        onChange={this.onChange}
                     />
                     
                     <br/>
                     <TextField 
                         required
-                        label="Descricao"
+                        label="porte"
                         fullWidth
+                        name="porte"
                         placeholder="Informe demais caracteristicas do PET"
-                        onChange={(event, newValue) => this.setState({descricao: newValue})}
+                        onChange={this.onChange}
                     />
+
+                    <Button variant="raised" size="medium" primary={true} onClick={(event) => this.onSubmit(event)}>Entrar</Button>
+						
                     
             </div>
         );
