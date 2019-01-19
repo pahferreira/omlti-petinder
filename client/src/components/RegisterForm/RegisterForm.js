@@ -20,6 +20,35 @@ class RegisterForm extends Component {
 	}
 
 
+
+	constructor() {
+        super()
+        this.state = {
+            nome: '',
+            email: '',
+			senha: ''
+        }
+    }
+
+
+	onSubmit = e => {
+        e.preventDefault()
+        let user = {
+            nome: this.state.nome,
+            email: this.state.email,
+            senha: this.state.senha,
+        }
+        axios.post('/api/users/register', user).then(function (response) {
+            if(response.status===200){
+                window.alert('Usuário cadastrado com Sucesso.')
+                document.location.href = '/'
+            }
+		})
+	}
+
+	onChange = (event) => this.setState({ [event.target.name] : event.target.value })
+	
+
 	render() {
 		return (
 			<form onSubmit={this.onSubmit}  className="register-container">
@@ -30,28 +59,31 @@ class RegisterForm extends Component {
 						</Typography>
 						<br />
 						<TextField
+							name="nome"
 							style={style}
 							placeholder="Digite seu nome completo"
 							label="Nome"
-							name="nome"
+							onChange= {this.onChange}
 						/>
 						<br />
 						<TextField
+							name="email"
 							style={style}
 							placeholder="Digite seu e-mail"
 							label="E-mail"
-							name="email"
+							onChange= {this.onChange}
 						/>
 						<br />
 						<TextField
+							name="senha"
 							style={style}
 							type="password"
 							placeholder="Digite sua senha"
 							label="Senha"
-							name="senha"
+							onChange = {this.onChange}
 						/>
 						<br />
-						<Button variant="contained" size="medium"  style={style} type="submit">Cadastrar</Button> 
+						<Button variant="raised" size="medium" primary={true} style={style} onClick={(event) => this.onSubmit(event)}>Cadastrar</Button>
 						<br />
 						<Typography align="center">
 							<a href="/">

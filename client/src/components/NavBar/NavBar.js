@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import "./NavBar.css"
-
+import AuthHelper from "./../../util/AuthHelper"
 
 class NavBar extends Component {
 	constructor(props) {
@@ -12,7 +12,7 @@ class NavBar extends Component {
 			isOpen: false
 		};
 	}
-
+	
 	handleClick = event => {
 		this.setState({ anchorEl: event.currentTarget, isOpen: true });
 	};
@@ -64,7 +64,13 @@ class NavBar extends Component {
 						<Typography variant="h6" color="inherit" className="navbar-grow">
 							PeTinder
 						</Typography>
-						<Button variant="outlined" href="/login" color="inherit">Entrar ou Cadastrar</Button>
+						{ (() => {
+							if(AuthHelper.isUserLogged() ) 
+								return (<Button variant="outlined" href="/logout" color="inherit">Sair</Button>)
+							else
+								return (<Button variant="outlined" href="/login" color="inherit">Entrar ou Cadastrar</Button>)
+							 })() }
+						
 					</Toolbar>
 				</AppBar>
 			</div>

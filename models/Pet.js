@@ -11,6 +11,10 @@ const PetSchema = new Schema({
     type: [String],
     required: true
   },
+  especie: {
+    type: String, 
+    required: true
+  },
   nome: {
     type: String,
     required: true
