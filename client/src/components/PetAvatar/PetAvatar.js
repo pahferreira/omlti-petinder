@@ -66,7 +66,7 @@ function ImgMediaCard(props) {
           alt="Contemplative Reptile"
           className={classes.media}
           height="100"
-          image={props.pet.fotos}
+          image={props.pet.fotos[0]}
           title="Contemplative Reptile"
         />
         <CardContent>
