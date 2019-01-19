@@ -23,7 +23,7 @@ export default class PetMural extends React.Component {
 	}
 
 	buildGrid() {
-		return this.state.pets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} name={pet.nome} img={pet.fotos} /> </Grid>)
+		return this.state.pets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} pet={pet} /> </Grid>)
 	}
 
 	render() {
@@ -43,14 +43,14 @@ export default class PetMural extends React.Component {
 
 		//let  pets = await fetch("urlPetsProx").them(res => res.json())
 		return [
-			{ nome: "Bob", fotos: "http://www.petsfoto.com/wp-content/uploads/2010/04/comp-pets2.jpg", url: "requisição detalhada" },
-			{ nome: "Marshal", fotos: "http://3.bp.blogspot.com/--qflv1mtcA8/UIohkj5AfqI/AAAAAAAAAjs/lPWMAQixraE/s1600/Dog+And+Laptop.jpg", url: "requisição detalhada" },
-			{ nome: "Teteia", fotos: "https://www.wallpaperup.com/uploads/wallpapers/2015/04/15/661816/3ae84bdc368599fc0c7609683e9e9d35-700.jpg", url: "requisição detalhada" },
-			{ nome: "Patolino", fotos: "http://www.animalslook.com/wp-content/uploads/2010/11/74.jpg", url: "requisição detalhada" },
-			{ nome: "Frajolino", fotos: "https://image.shutterstock.com/image-photo/first-caught-mouse-260nw-389364235.jpg", url: "requisição detalhada" },
-			{ nome: "Pernalonga", fotos: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/cat-5-770x405.jpg", url: "requisição detalhada" },
-			{ nome: "Toby", fotos: "http://www.petsfoto.com/wp-content/uploads/2010/04/comp-pets3.jpg", url: "requisição detalhada" },
-			{ nome: "Amora", fotos: "http://www.animalslook.com/wp-content/uploads/2010/11/141.jpg", url: "requisição detalhada" },
+			{ nome: "Bob", fotos: "http://www.petsfoto.com/wp-content/uploads/2010/04/comp-pets2.jpg",sexo: 'macho' , especie: 'cachorro' },
+			{ nome: "Marshal", fotos: "http://3.bp.blogspot.com/--qflv1mtcA8/UIohkj5AfqI/AAAAAAAAAjs/lPWMAQixraE/s1600/Dog+And+Laptop.jpg",sexo: 'macho' , especie: 'cachorro' },
+			{ nome: "Teteia", fotos: "https://www.wallpaperup.com/uploads/wallpapers/2015/04/15/661816/3ae84bdc368599fc0c7609683e9e9d35-700.jpg",sexo: 'femea' , especie: 'gato'  },
+			{ nome: "Patolino", fotos: "http://www.animalslook.com/wp-content/uploads/2010/11/74.jpg",sexo: 'macho' , especie: 'cachorro'  },
+			{ nome: "Lele", fotos: "https://image.shutterstock.com/image-photo/first-caught-mouse-260nw-389364235.jpg",sexo: 'femea' , especie: 'gato'  },
+			{ nome: "Pernalonga", fotos: "https://cdn0.wideopenpets.com/wp-content/uploads/2016/04/cat-5-770x405.jpg",sexo: 'macho' , especie: 'gato'  },
+			{ nome: "Toby", fotos: "http://www.petsfoto.com/wp-content/uploads/2010/04/comp-pets3.jpg",sexo: 'macho' , especie: 'cachorro'  },
+			{ nome: "Amora", fotos: "http://www.animalslook.com/wp-content/uploads/2010/11/141.jpg",sexo: 'femea' , especie: 'cachorro'  },
 		]
 	}
 }
