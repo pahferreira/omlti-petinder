@@ -1,180 +1,179 @@
 import React, { Component } from 'react';
-import { Radio, Grid, Button, TextField, Typography, FormGroup, FormControlLabel, Switch, Checkbox} from '@material-ui/core';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Favorite from '@material-ui/icons/Favorite';
-import iconsCss from '@fortawesome/fontawesome-free/css/all.css'	
-import iconsJs from '@fortawesome/fontawesome-free/js/all.js'
+import { Radio, Grid, Button, TextField, FormControl, FormLabel, RadioGroup, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 import AuthHelper from "./../../util/AuthHelper"
 import axios from "axios"
-
-
+import '../../index.css'
 
 class PetForm extends Component {
-
     componentWillMount() {
-
         AuthHelper.handleLinkAuth()
-
         this.setState({
-                    nome: "",                
-                    especie: "",
-                    sexo: "",
-                    castrado: false,
-                    vacinado: false, 
-                    personalidade: "",
-                    porte: ""
-                })
-                
+            nome: "",
+            especie: "",
+            sexo: "",
+            castrado: false,
+            vacinado: false,
+            personalidade: "",
+            porte: ""
+        })
     }
 
     onSubmit = e => {
         e.preventDefault()
-        console.log(this.state)
-        
         let pet = {
-            
+            nome: this.state.nome,
+            especie: this.state.especie,
+            sexo: this.state.sexo,
+            castrado: this.state.castrado,
+            vacinado: this.state.vacinado,
+            personalidade: this.state.personalidade,
+            porte: this.state.porte,
         }
+
         axios.post('/api/pets/create', pet).then(function (response) {
-            if(response.status===200){
-                window.alert('Usuário cadastrado com Sucesso.')
+            if (response.status === 200) {
+                window.alert('Seu pet foi cadastrado.')
                 document.location.href = '/'
+            } else {
+                window.alert('Algo deu errado, tente novamente.')
             }
-		})
+        }).catch(response => console.log(response))
     }
-    
-    onChange = (event) => this.setState({ [event.target.name] : event.target.value })
+
+    onChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
     render() {
         return (
             <div className="container">
-                    <Typography align="left" variant="display1">
-                        Insira informações sobre seu pet
-                    </Typography>
-                    <br/>
+                <Typography align="center" variant="display1">
+                    Cadastrar PET
+                </Typography>
+                <Grid
+                    container
+                    direction='column'
+                    justify='center'>
                     <FormGroup row>
-                        <TextField 
+                        <TextField
                             required
-                            fullWidth    
+                            fullWidth
                             placeholder="Digite o nome do pet"
                             label="Nome"
                             name="nome"
-                            onChange={this.onChange}
-                            />
+                            onChange={this.onChange} />
                     </FormGroup>
-                    <br/>
-                    <Typography variant="subheading">Qual espécie do pet?</Typography>
+                    <br />
                     {this.generateEspecieSelector()}
-                    
-                    <br/>
-                    <Typography variant="subheading">Sexo:</Typography><br/>
+                    <br />
                     {this.generateSexoSelector()}
-                    <br/>
+                    <br />
                     {this.generateSwitchSelectors()}
-                    
-                    <br/>
-                    <TextField 
-                        required
-                        label="Personalidade"
-                        fullWidth
-                        name="personalidade"
-                        placeholder="Descreva em uma frase ou palavra a personalidade do PET"
-                        onChange={this.onChange}
-                    />
-                    
-                    <br/>
-                    <TextField 
-                        required
-                        label="porte"
-                        fullWidth
-                        name="porte"
-                        placeholder="Informe demais caracteristicas do PET"
-                        onChange={this.onChange}
-                    />
+                    <FormGroup row>
+                        <TextField
+                            required
+                            label="Personalidade"
+                            fullWidth
+                            name="personalidade"
+                            placeholder="Tente descrever em uma frase ou uma palavra a personalidade do PET"
+                            onChange={this.onChange} />
+                    </FormGroup>
+                    <br />
+                    {this.porteSelector()}
 
-                    <Button variant="raised" size="medium" primary={true} onClick={(event) => this.onSubmit(event)}>Entrar</Button>
-						
-                    
+                </Grid>
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={(event) => this.onSubmit(event)}
+                    style={{ float: 'right' }}>
+                    Cadastrar
+                </Button>
             </div>
         );
     }
 
-    generateEspecieSelector(){
-        return ( <FormGroup row>
-            <FormControlLabel
-                control={
-                    <Radio icon={<i class="fas fa-dog fa-2x"></i>} 
-                    checkedIcon={<i class="fas fa-dog icon-checked fa-2x"></i>} 
-                    checked={this.state.especie === "cachorro"}
-                    value="cachorro" 
+    generateEspecieSelector() {
+        return (
+            <FormControl component="fieldset" required="true">
+                <FormLabel component="legend">Espécie</FormLabel>
+                <RadioGroup
+                    aria-label="Espécie"
                     name="especie"
-                    onChange={ (event, newValue) => {
-                        this.setState({especie : event.target.value})
-                    }}/>
-                }
-                label="Cachorro"
-            />
-            <FormControlLabel
-                control={
-                    <Radio icon={ <i class="fas fa-cat fa-2x"></i> } 
-                    checkedIcon={<i class="fas fa-dog icon-checked fa-2x"></i>} 
-                    checked={this.state.especie === "gato"}
-                    value="gato" 
-                    name="especie"
-                    onChange={ (event) => {
-                        this.setState({especie : "gato"})
-                    }}/>
-                }
-                label="Gato"
-            />
-        </FormGroup>)
+                    value={this.state.especie}
+                    onChange={(event) => {
+                        this.setState({ especie: event.target.value })
+                    }}>
+                    <FormControlLabel value="cachorro" control={<Radio />} label="Cachorro" />
+                    <FormControlLabel value="gato" control={<Radio />} label="Gato" />
+                </RadioGroup>
+            </FormControl>
+        )
     }
 
-    generateSexoSelector(){
-        return (<FormGroup row>
-                        
-            <Radio icon={<i class="fas fa-mars fa-2x"></i>} 
-                    checkedIcon={<i class="fas fa-mars icon-checked fa-2x"></i>} 
-                    checked={this.state.sexo === "macho"}
-                    value="macho" 
+    generateSexoSelector() {
+        return (
+            <FormControl component="fieldset" required="true">
+                <FormLabel component="legend">Sexo</FormLabel>
+                <RadioGroup
+                    aria-label="Sexo"
                     name="sexo"
-                    onChange={ (event, newValue) => {
-                        this.setState({sexo : event.target.value})
-                    }}/>
-            <Radio icon={<i class="fas fa-venus fa-2x"></i>} 
-                    checkedIcon={<i class="fas fa-venus icon-checked fa-2x"></i>} 
-                    checked={this.state.sexo === "femea"}
-                    value="femea" 
-                    name="sexo"
-                    onChange={ (event, newValue) => {
-                        this.setState({sexo : event.target.value})
-                    }}/>
-
-        </FormGroup>)
+                    value={this.state.sexo}
+                    onChange={(event) => {
+                        this.setState({ sexo: event.target.value })
+                    }}>
+                    <FormControlLabel value="F" control={<Radio />} label="Femea" />
+                    <FormControlLabel value="M" control={<Radio />} label="Macho" />
+                </RadioGroup>
+            </FormControl>
+        )
     }
 
-    generateSwitchSelectors(){
-        return(
-            <div>
-                <FormGroup row> 
-                    <Typography variant="subheading">Castrado?</Typography>
-                    <Switch 
-                        checked={this.state.castrado}
-                        onChange={ event => {this.setState({castrado : !this.state.castrado})}}
-                        value="checkedCastrado"
-                        name="castrado"
-                        />
+    generateSwitchSelectors() {
+        return (
+            <FormControl component="fieldset">
+                <FormLabel component="legend">Outros</FormLabel>
+                <FormGroup>
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.vacinado}
+                                onChange={() => { this.setState({ vacinado: !this.state.vacinado }) }}
+                                value={this.state.vacinado}
+                            />
+                        }
+                        label="Vacinado?"
+                    />
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={this.state.castrado}
+                                onChange={() => { this.setState({ castrado: !this.state.castrado }) }}
+                                value={this.state.castrado}
+                            />
+                        }
+                        label="Castrado?"
+                    />
                 </FormGroup>
+            </FormControl>
+        )
+    }
 
-                <FormGroup row> 
-                    <Typography variant="subheading">Vacinado?</Typography>
-                    <Switch 
-                        checked={this.state.vacinado}
-                        onChange={ event => {this.setState({vacinado : !this.state.vacinado})}}
-                        value="checkedVacinao"
-                        name="vacinado"
-                        />
-                </FormGroup>
-            </div>
+    porteSelector() {
+        return (
+            <FormControl component="fieldset" required="true">
+                <FormLabel component="legend">Porte</FormLabel>
+                <RadioGroup
+                    aria-label="Porte"
+                    name="porte"
+                    value={this.state.porte}
+                    onChange={(event) => {
+                        this.setState({ porte: event.target.value })
+                    }}>
+                    <FormControlLabel value="P" control={<Radio />} label="Pequeno" />
+                    <FormControlLabel value="M" control={<Radio />} label="Medio" />
+                    <FormControlLabel value="G" control={<Radio />} label="Grande" />
+                </RadioGroup>
+            </FormControl>
         )
     }
 }

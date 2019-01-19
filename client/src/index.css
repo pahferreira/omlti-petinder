@@ -2,3 +2,13 @@ body {
 	margin: 0;
 	padding: 0;
 }
+
+.container {
+	margin: 20px auto;
+	width: 50%;
+}
+
+.section {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
