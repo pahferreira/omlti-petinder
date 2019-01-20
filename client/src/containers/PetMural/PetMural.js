@@ -56,9 +56,6 @@ export default class PetMural extends React.Component {
 				<Grid container item>
 					{this.buildGrid()}
 				</Grid>
-				<Grid item>
-					<Button variant="contained" > Ver mais </Button>
-				</Grid>
 			</Grid>
 			</>
 		);
