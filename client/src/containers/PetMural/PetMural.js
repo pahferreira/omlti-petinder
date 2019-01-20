@@ -1,35 +1,57 @@
 import React from "react";
 import PetAvatar from "../../components/PetAvatar/PetAvatar"
 import { Grid, Button } from '@material-ui/core';
+import PetFilterForm from '../../components/PetFilterForm/PetFilterForm'
 import axios from 'axios'
+import iconsCss from '@fortawesome/fontawesome-free/css/all.css'	
+import iconsJs from '@fortawesome/fontawesome-free/js/all.js'
 
 export default class PetMural extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.state = { pets: [], loading: true }
-	}
-
-	componentWillMount() {
+		this.state = { pets: [], visiblePets: [], loading: true, filter: {sexo: null, especie: null}}
+	
 		this.requestPets().then(pets => {
 			this.setState({
 				pets
 			})
+			this.updateVisiblePets()
 		})
 	}
 
-	componentDidMount() {
-		// this.setState({loading : true})
-		// this.setState({pets : this.requestPets(), loading: false})
-		// <Grid item xs={8} sm={3} > <img src='https://cdn.dribbble.com/users/172519/screenshots/3520576/dribbble-spinner-800x600.gif'/> </Grid> 
+	onChangeFilter = (event) => {
+		let filter = this.state.filter 
+		filter[event.target.name] = event.target.value
+		console.log(filter)
+		this.setState( {'filter': filter})
+		console.log(this.state.filter)
+		this.updateVisiblePets()
+	}
+
+	updateVisiblePets() {
+
+		if(this.state.filter.sexo == null && this.state.filter.especie == null)
+			this.setState({visiblePets : this.state.pets})
+		else {
+			let filtrados = this.state.pets
+			if(this.state.filter.sexo != null) 
+				filtrados = filtrados.filter(pet => pet.sexo === this.state.filter.sexo)
+			if(this.state.filter.especie != null)
+			filtrados = filtrados.filter(pet => pet.especie === this.state.filter.especie)
+		}
 	}
 
 	buildGrid() {
-		return this.state.pets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} pet={pet} /> </Grid>)
+		return this.state.visiblePets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} pet={pet} /> </Grid>)
 	}
 
 	render() {
 		return (
+			<>
+			<PetFilterForm 
+				onChangeCallBack={this.onChangeFilter}
+				filterValues={this.state.filter}/>
 			<Grid container justify="center" alignItems="center" direction="column" >
 				<Grid container item>
 					{this.buildGrid()}
@@ -38,6 +60,7 @@ export default class PetMural extends React.Component {
 					<Button variant="contained" > Ver mais </Button>
 				</Grid>
 			</Grid>
+			</>
 		);
 	}
 
