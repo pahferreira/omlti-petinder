@@ -1,9 +1,24 @@
 import React, { Component } from "react";
 import { Grid, Button, TextField, Typography } from '@material-ui/core';
 import "./RegisterForm.css";
-import axios from 'axios';
+import axios from "axios";
 
 class RegisterForm extends Component {
+	
+	onSubmit(e) {
+		e.preventDefault();
+		const form = e.target;
+		const newUser = {};
+		for(let i=0; i<form.length; i++) {
+			if(form[i].localName === "input"){
+				let input = form[i];
+				newUser[input.name] = input.value;
+			}
+		}
+		axios.post("/api/users/register", newUser);
+		document.location.href = "/";
+	}
+
 
 
 	constructor() {
@@ -36,7 +51,7 @@ class RegisterForm extends Component {
 
 	render() {
 		return (
-			<form className="register-container">
+			<form onSubmit={this.onSubmit}  className="register-container">
 				<Grid container justify="center" alignItems="center">
 					<div>
 						<Typography variant="title" align="center">
