@@ -9,7 +9,7 @@ class PetDetail extends React.Component {
         this.state = { pet: [] }
     }
     componentWillMount() {
-        let url = "api/pets/" + this.props.match.params.id
+        let url = "/api/pets/" + this.props.match.params.id
         axios.get(url)
             .then(response => {
                 this.setState({ pet: response.data })
@@ -41,11 +41,11 @@ class PetDetail extends React.Component {
                         > {pet.descricao}
                     </Typography>
                     <Typography variant="h6">
-                        > {pet.sexo == 'M'? 'Macho':'Fêmea'}
+                        > {pet.sexo === 'M'? 'Macho':'Fêmea'}
                     </Typography>
                     <Typography variant="h6">
-                        > Porte {pet.porte == 'P'? 'pequeno':
-                        pet.porte == 'M'? 'médio': 'grande'
+                        > Porte {pet.porte === 'P'? 'pequeno':
+                        pet.porte === 'M'? 'médio': 'grande'
                     }
                     </Typography>
                 </Grid>

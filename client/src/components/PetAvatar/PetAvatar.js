@@ -32,7 +32,7 @@ function ImgMediaCard(props) {
     <Card 
       className={classes.card} 
       onClick={() => {
-        window.location.href = props.pet._id
+        window.location.href = '/pet/' + props.pet._id
       }}>
       <CardActionArea>
         <CardMedia
