@@ -14,32 +14,40 @@ class PetForm extends Component {
             castrado: false,
             vacinado: false,
             personalidade: "",
-            porte: ""
+	    porte: "",
+	    descricao: ""
         })
     }
 
     onSubmit = e => {
         e.preventDefault()
-        let pet = {
+        const pet = {
             nome: this.state.nome,
             especie: this.state.especie,
             sexo: this.state.sexo,
-            castrado: this.state.castrado,
-            vacinado: this.state.vacinado,
             personalidade: this.state.personalidade,
             porte: this.state.porte,
-        }
+	    saude: {
+		    vacinas: this.state.vacinado,
+		    castrado: this.state.castrado
+	    },
+	    responsavel: AuthHelper.getUserId(),
+	    descricao: this.state.descricao
+        };
 
-        axios.post('/api/pets/create', pet).then(function (response) {
-            if (response.status === 200) {
-                window.alert('Seu pet foi cadastrado.')
-                document.location.href = '/'
-            } else {
-                window.alert('Algo deu errado, tente novamente.')
-            }
-        }).catch(response => console.log(response))
+	axios({
+		method: "post",
+		url: "/api/pets/create",
+		data: pet,
+		headers: { Authorization: AuthHelper.getToken() }
+	}).then( (res) => {
+	    if(res.status === 200) {
+		    alert("Pet cadastrado com sucesso!");
+		    window.location.href = "/";
+	    }
+	    else alert("Ocorreu um erro! Por favor, tente novamente.");
+	});
     }
-
     onChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
     render() {
@@ -54,7 +62,7 @@ class PetForm extends Component {
                     justify='center'>
                     <FormGroup row>
                         <TextField
-                            required
+                            required={true}
                             fullWidth
                             placeholder="Digite o nome do pet"
                             label="Nome"
@@ -67,9 +75,20 @@ class PetForm extends Component {
                     {this.generateSexoSelector()}
                     <br />
                     {this.generateSwitchSelectors()}
+		    <br />
+		    <FormGroup row>
+			<TextField
+			    required={true}
+			    label="Descrição"
+			    fullWidth
+			    name="descricao"
+			    placeholder="Uma descrição do seu pet e sua historinha."
+			    onChange={this.onChange} />
+	            </FormGroup>
+		    <br />
                     <FormGroup row>
                         <TextField
-                            required
+                            required={true}
                             label="Personalidade"
                             fullWidth
                             name="personalidade"
@@ -94,7 +113,7 @@ class PetForm extends Component {
 
     generateEspecieSelector() {
         return (
-            <FormControl component="fieldset" required="true">
+            <FormControl component="fieldset" required={true}>
                 <FormLabel component="legend">Espécie</FormLabel>
                 <RadioGroup
                     aria-label="Espécie"
@@ -112,7 +131,7 @@ class PetForm extends Component {
 
     generateSexoSelector() {
         return (
-            <FormControl component="fieldset" required="true">
+            <FormControl component="fieldset" required={true}>
                 <FormLabel component="legend">Sexo</FormLabel>
                 <RadioGroup
                     aria-label="Sexo"
@@ -160,7 +179,7 @@ class PetForm extends Component {
 
     porteSelector() {
         return (
-            <FormControl component="fieldset" required="true">
+            <FormControl component="fieldset" required={true}>
                 <FormLabel component="legend">Porte</FormLabel>
                 <RadioGroup
                     aria-label="Porte"

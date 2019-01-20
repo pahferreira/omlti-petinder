@@ -22,14 +22,13 @@ exports.createPet = (req, res) => {
     nome: req.body.nome,
     sexo: req.body.sexo,
     descricao: req.body.descricao,
+    especie: req.body.especie,
     porte: req.body.porte,
     fotos: req.body.fotos,
-    responsavel: req.user.id,
-    saude: {
-      castrado: req.body.castrado,
-      vacinas: req.body.vacinas
-    }
+    responsavel: req.user.id
   });
+  newPet.saude.vacinas = req.body.saude.vacinas;
+  newPet.saude.castrado = req.body.saude.castrado;
   newPet.save()
     .then(pet => res.json(pet))
     .catch(err => console.log(err));
