@@ -29,7 +29,11 @@ const styles = {
 function ImgMediaCard(props) {
   const { classes } = props;
   return (
-    <Card className={classes.card} onClick={props.click}>
+    <Card 
+      className={classes.card} 
+      onClick={() => {
+        window.location.href = props.pet._id
+      }}>
       <CardActionArea>
         <CardMedia
           component="img"
