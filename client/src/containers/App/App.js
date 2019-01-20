@@ -27,7 +27,7 @@ const App = () => {
 				<Route path="/login" component={LoginForm} />
 				<Route path="/cadastrar" component={RegisterForm} />
 				<Route path="/logout" component={Logout} />
-				<Route path="/:id/" component={PetDetail} />
+				<Route path="/pet/:id/" component={PetDetail} />
 			</div>
 		</Router>
 	);
