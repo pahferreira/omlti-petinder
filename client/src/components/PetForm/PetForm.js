@@ -14,7 +14,8 @@ class PetForm extends Component {
             castrado: false,
             vacinado: false,
             personalidade: "",
-            porte: ""
+	    porte: "",
+	    descricao: ""
         })
     }
 
@@ -24,11 +25,15 @@ class PetForm extends Component {
             nome: this.state.nome,
             especie: this.state.especie,
             sexo: this.state.sexo,
-            castrado: this.state.castrado,
-            vacinado: this.state.vacinado,
             personalidade: this.state.personalidade,
             porte: this.state.porte,
-        }
+	    saude: {
+		    vacinas: this.state.vacinado,
+		    castrado: this.state.castrado
+	    },
+	    responsavel: AuthHelper.getUserId(),
+	    descricao: this.state.descricao
+        };
 
 	axios({
 		method: "post",
@@ -70,6 +75,17 @@ class PetForm extends Component {
                     {this.generateSexoSelector()}
                     <br />
                     {this.generateSwitchSelectors()}
+		    <br />
+		    <FormGroup row>
+			<TextField
+			    required={true}
+			    label="Descrição"
+			    fullWidth
+			    name="descricao"
+			    placeholder="Uma descrição do seu pet e sua historinha."
+			    onChange={this.onChange} />
+	            </FormGroup>
+		    <br />
                     <FormGroup row>
                         <TextField
                             required={true}
