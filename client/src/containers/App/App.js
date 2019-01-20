@@ -6,8 +6,9 @@ import PetMural from "../PetMural/PetMural";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import PetForm from "../../components/PetForm/PetForm";
-import Logout from "../../components/Logout/Logout"
-import AuthHelper from "./../../util/AuthHelper"
+import Logout from "../../components/Logout/Logout";
+import AuthHelper from "./../../util/AuthHelper";
+import PetDetail from "../../components/PetAvatar/PetDetail";
 
 const App = () => {
 	const routes = {
@@ -26,6 +27,7 @@ const App = () => {
 				<Route path="/login" component={LoginForm} />
 				<Route path="/cadastrar" component={RegisterForm} />
 				<Route path="/logout" component={Logout} />
+				<Route path="/:id/" component={PetDetail} />
 			</div>
 		</Router>
 	);
