@@ -1,31 +1,3 @@
-/* import React from "react";
-import  Avatar from '@material-ui/core/Avatar';
-import 'typeface-roboto';
-import { Typography, Card } from "@material-ui/core";
-
-const imgSize = {
-    width: 150,
-    height: 150,
-    marginBottom: 10
-}
-const divStyle = {
-    display: 'inline-block',
-    textAlign: 'center',
-	marginBottom: 50,
-	marginTop: 50
-}
-
-export default  (props) => {
-    return(
-        <div style={divStyle} onClick={props.click}>
-
-            < Avatar src={props.img} style={imgSize} />
-            <Typography variant="h5">{props.name}</Typography>
-        </div>
-    )
-}
- */
-
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -61,11 +33,11 @@ function ImgMediaCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt={props.pet.nome}
           className={classes.media}
           height="100"
           image={props.pet.fotos[0]}
-          title="Contemplative Reptile"
+          title={props.pet.nome}
         />
         <CardContent>
           <Typography variant="h5" component="h2">
@@ -73,7 +45,7 @@ function ImgMediaCard(props) {
 
           </Typography>
           <Typography>
-            {(props.pet.sexo === 'macho') ?
+            {(props.pet.sexo == 'M') ?
             (<i className={`fas fa-mars fa-2x ${classes.icon}`}></i>) :
             (<i className={`fas fa-venus fa-2x ${classes.icon}`}></i>)}
 
