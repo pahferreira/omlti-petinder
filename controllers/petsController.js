@@ -54,6 +54,7 @@ exports.updatePetById = (req, res) => {
     if (req.body.castrado) petInfos.saude.castrado = req.body.castrado;
     if (req.body.vacinas) petInfos.saude.vacinas = req.body.vacinas;
   }
+  if(req.body.adotado) petInfos.adotado = req.body.adotado 
 
   Pet.findById(req.params.petID)
     .then(pet => {
