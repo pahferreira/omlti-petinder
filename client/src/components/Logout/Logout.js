@@ -3,7 +3,7 @@ import AuthHelper from "./../../util/AuthHelper"
 
 export default class Logout extends Component {
   componentWillMount() {
-    AuthHelper.removeToken()
+    AuthHelper.removeToken()  
     document.location.href = '/'
   }
 

@@ -64,7 +64,7 @@ export default class PetMural extends React.Component {
 	requestPets() {
 
 		//let  pets = await fetch("urlPetsProx").them(res => res.json())
-		return axios.get("api/pets/all")
+		return axios.get("api/pets/available")
 		.then(response => {
 			console.log(response.data)
 			return response.data
