@@ -6,7 +6,6 @@ import '../../index.css'
 
 class PetForm extends Component {
     componentWillMount() {
-        AuthHelper.handleLinkAuth()
         this.setState({
             nome: "",
             especie: "",
@@ -14,8 +13,8 @@ class PetForm extends Component {
             castrado: false,
             vacinado: false,
             personalidade: "",
-	    porte: "",
-	    descricao: ""
+            porte: "",
+            descricao: ""
         })
     }
 
@@ -27,26 +26,26 @@ class PetForm extends Component {
             sexo: this.state.sexo,
             personalidade: this.state.personalidade,
             porte: this.state.porte,
-	    saude: {
-		    vacinas: this.state.vacinado,
-		    castrado: this.state.castrado
-	    },
-	    responsavel: AuthHelper.getUserId(),
-	    descricao: this.state.descricao
+            saude: {
+                vacinas: this.state.vacinado,
+                castrado: this.state.castrado
+            },
+            responsavel: AuthHelper.getUserId(),
+            descricao: this.state.descricao
         };
 
-	axios({
-		method: "post",
-		url: "/api/pets/create",
-		data: pet,
-		headers: { Authorization: AuthHelper.getToken() }
-	}).then( (res) => {
-	    if(res.status === 200) {
-		    alert("Pet cadastrado com sucesso!");
-		    window.location.href = "/";
-	    }
-	    else alert("Ocorreu um erro! Por favor, tente novamente.");
-	});
+        axios({
+            method: "post",
+            url: "/api/pets/create",
+            data: pet,
+            headers: { Authorization: AuthHelper.getToken() }
+        }).then((res) => {
+            if (res.status === 200) {
+                alert("Pet cadastrado com sucesso!");
+                window.location.href = "/";
+            }
+            else alert("Ocorreu um erro! Por favor, tente novamente.");
+        });
     }
     onChange = (event) => this.setState({ [event.target.name]: event.target.value })
 
@@ -75,17 +74,17 @@ class PetForm extends Component {
                     {this.generateSexoSelector()}
                     <br />
                     {this.generateSwitchSelectors()}
-		    <br />
-		    <FormGroup row>
-			<TextField
-			    required={true}
-			    label="Descrição"
-			    fullWidth
-			    name="descricao"
-			    placeholder="Uma descrição do seu pet e sua historinha."
-			    onChange={this.onChange} />
-	            </FormGroup>
-		    <br />
+                    <br />
+                    <FormGroup row>
+                        <TextField
+                            required={true}
+                            label="Descrição"
+                            fullWidth
+                            name="descricao"
+                            placeholder="Uma descrição do seu pet e sua historinha."
+                            onChange={this.onChange} />
+                    </FormGroup>
+                    <br />
                     <FormGroup row>
                         <TextField
                             required={true}
