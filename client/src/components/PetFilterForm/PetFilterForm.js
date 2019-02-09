@@ -1,12 +1,9 @@
 import React from "react";
-import { Radio, Grid, Button, TextField, FormControl, FormLabel, RadioGroup, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
-
-
+import { Radio, FormControl, FormLabel, RadioGroup, FormControlLabel } from '@material-ui/core';
 
 class PetFilterForm extends React.Component {
 
     constructor(props) {
-
         super(props)
     }
 
@@ -19,7 +16,6 @@ class PetFilterForm extends React.Component {
             </div>
         );
     }
-
 
     generateEspecieSelector() {
         return (
@@ -38,7 +34,7 @@ class PetFilterForm extends React.Component {
             </FormControl>
         )
     }
-    
+
     generateSexoSelector() {
         return (
             <FormControl component="fieldset" required="true">
