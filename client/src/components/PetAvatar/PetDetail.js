@@ -21,7 +21,10 @@ class PetDetail extends React.Component {
 
         
         let url = "/api/pets/" + this.props.match.params.id
-        let pet = {adotado: true}
+        let users = this.state.pet.usuariosInteressados
+        if(users == null || users == undefined)
+            users = []
+        let pet = {usuariosInteressados: users.push(AuthHelper.getUserId())}
         
         axios({
             method: "post",
@@ -72,8 +75,15 @@ class PetDetail extends React.Component {
                         }
                     </Typography>
                     {(pet.responsavel === AuthHelper.getUserId()) ?
-                        ( (pet.adotado) ?
-                             <Typography variant="v7"> Um usuário deseja adotar este pet</Typography> :
+                        ((pet.usuariosInteressados) ?
+                            (
+                                <>
+                                <Typography variant="v7"> Usuarios interessados:</Typography>
+                                <ul>
+                                    {pet.usuariosInteressados.map(user => <li>{user}</li>)}
+                                </ul>
+                                </>
+                            ) :
                             <Typography variant="v7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) :
                         <Button
                             variant="contained"

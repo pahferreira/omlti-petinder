@@ -3,6 +3,9 @@ import PetAvatar from "../../components/PetAvatar/PetAvatar"
 import { Grid } from '@material-ui/core';
 import PetFilterForm from '../../components/PetFilterForm/PetFilterForm'
 import axios from 'axios'
+import iconsCss from '@fortawesome/fontawesome-free/css/all.css'	
+import iconsJs from '@fortawesome/fontawesome-free/js/all.js'
+import "./../../index.css"
 
 export default class PetMural extends React.Component {
 
@@ -47,9 +50,12 @@ export default class PetMural extends React.Component {
 	render() {
 		return (
 			<>
-			<PetFilterForm 
+			<div className="container">
+			<PetFilterForm
+				
 				onChangeCallBack={this.onChangeFilter}
 				filterValues={this.state.filter}/>
+			</div>
 			<Grid container justify="center" alignItems="center" direction="column" >
 				<Grid container item>
 					{this.buildGrid()}
