@@ -1,6 +1,6 @@
 import React from "react";
 import PetAvatar from "../../components/PetAvatar/PetAvatar"
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import PetFilterForm from '../../components/PetFilterForm/PetFilterForm'
 import axios from 'axios'
 import iconsCss from '@fortawesome/fontawesome-free/css/all.css'	

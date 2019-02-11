@@ -12,7 +12,7 @@ class NavBar extends Component {
 			isOpen: false
 		};
 	}
-	
+
 	handleClick = event => {
 		this.setState({ anchorEl: event.currentTarget, isOpen: true });
 	};
@@ -40,45 +40,32 @@ class NavBar extends Component {
 							open={this.state.isOpen}
 							onClose={() => this.handleClose()}
 						>
-							<MenuItem onClick={(e) => this.handleClose(e)}>
-								<Typography variant="overline" color="inherit">
-									Home
-								</Typography>
-							</MenuItem>
-							<MenuItem onClick={() => this.handleClose()}>
+							<MenuItem onClick={() => window.location.href = "/"}>
 								<Typography variant="overline" color="inherit">
 									Mural
 								</Typography>
 							</MenuItem>
-							<MenuItem onClick={() => this.handleClose()}>
+							<MenuItem onClick={() => window.location.href = "/addpet"}>
 								<Typography variant="overline" color="inherit">
-									Informações
-								</Typography>
-							</MenuItem>
-							<MenuItem onClick={() => this.handleClose()}>
-								<Typography variant="overline" color="inherit">
-									Contato
+									Cadastrar PET
 								</Typography>
 							</MenuItem>
 						</Menu>
 						<Typography variant="h6" color="inherit" className="navbar-grow">
 							PeTinder
 						</Typography>
-						{ (() => {
-							if(AuthHelper.isUserLogged() ) 
+						{(() => {
+							if (AuthHelper.isUserLogged())
 								return (<Button variant="outlined" href="/logout" color="inherit">Sair</Button>)
 							else
 								return (<Button variant="outlined" href="/login" color="inherit">Entrar ou Cadastrar</Button>)
-							 })() }
-						
+						})()}
+
 					</Toolbar>
 				</AppBar>
 			</div>
 		);
 	}
 }
-
-
-
 
 export default NavBar;

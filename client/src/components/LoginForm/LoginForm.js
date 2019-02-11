@@ -22,14 +22,13 @@ class LoginForm extends Component {
 
     axios
       .post("/api/users/login", user)
-      .then(function(response) {
+      .then(function (response) {
         if (response.status === 200) {
-          window.alert("Login efetuado com sucesso.");
           AuthHelper.setToken(response.data.token, response.data.id);
           document.location.href = "/";
         }
         if (response.status === 400) {
-          console.log(response);
+          window.alert('Algo deu errado, tente novamente.')
         }
       })
       .catch(response => console.log(response));

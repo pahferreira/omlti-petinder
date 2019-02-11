@@ -7,8 +7,8 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import PetForm from "../../components/PetForm/PetForm";
 import Logout from "../../components/Logout/Logout";
-import AuthHelper from "./../../util/AuthHelper";
 import PetDetail from "../../components/PetAvatar/PetDetail";
+import PrivateRoute from "../../util/PrivateRoute";
 
 const App = () => {
 	const routes = {
@@ -22,12 +22,12 @@ const App = () => {
 		<Router>
 			<div>
 				<NavBar routes={routes} />
-				<Route exact path="/" component={PetMural} />
-				<Route exact path="/addpet" component={PetForm} onEnter={AuthHelper.handleLinkAuth} />
 				<Route path="/login" component={LoginForm} />
 				<Route path="/cadastrar" component={RegisterForm} />
 				<Route path="/logout" component={Logout} />
-				<Route path="/pet/:id/" component={PetDetail} />
+				<PrivateRoute exact path="/" component={PetMural} />
+				<PrivateRoute exact path="/addpet" component={PetForm} />
+				<PrivateRoute path="/pet/:id/" component={PetDetail} />
 			</div>
 		</Router>
 	);
