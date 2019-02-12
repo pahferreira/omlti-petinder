@@ -1,4 +1,6 @@
 const Pet = require("../models/Pet");
+const User = require("../models/User")
+const mongoose = require("mongoose");
 
 
 exports.test = (req, res) => {
@@ -42,7 +44,9 @@ exports.getPetById = (req, res) => {
     });
 };
 
+
 exports.updatePetById = (req, res) => {
+  console.log(req.body.usuariosInteressados)
   const petInfos = {};
   if (req.body.nome) petInfos.nome = req.body.nome;
   if (req.body.sexo) petInfos.sexo = req.body.sexo;
@@ -54,6 +58,8 @@ exports.updatePetById = (req, res) => {
     if (req.body.castrado) petInfos.saude.castrado = req.body.castrado;
     if (req.body.vacinas) petInfos.saude.vacinas = req.body.vacinas;
   }
+  if(req.body.usuariosInteressados) petInfos.usuariosInteressados = req.body.usuariosInteressados
+  if(req.body.processosAdocao) petInfos.processosAdocao = req.body.processosAdocao
   if(req.body.adotado) petInfos.adotado = req.body.adotado 
 
   Pet.findById(req.params.petID)

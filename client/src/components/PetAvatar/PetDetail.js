@@ -14,12 +14,36 @@ class PetDetail extends React.Component {
         axios.get(url)
             .then(response => {
                 this.setState({ pet: response.data })
+                let interessados = response.data.usuariosInteressados
+                if(interessados && this.state.pet.responsavel == AuthHelper.getUserId()) {
+                    url = "/api/users/various/"+ JSON.stringify({ids : interessados})
+                    console.log("request usuarios interessados")
+                    axios.get(url)
+                        .then(response => {
+                            this.setState({ interessados :  response.data})
+                            console.log(this.state)
+                        })
+                }
+                
             })
     }
 
-    adotar = () => {
-        let pet = { adotado: true }
+    confirmar = (user) => {
 
+        window.alert(user.nome)
+
+        
+
+
+    }
+
+    adotar = () => {
+
+        let interessados = this.state.pet.usuariosInteressados
+        if(!interessados) interessados = []
+        interessados.push(AuthHelper.getUserId())
+        let pet = { usuariosInteressados: interessados }
+        console.log(interessados)
         axios({
             method: "post",
             url: "/api/pets/" + this.props.match.params.id,
@@ -39,6 +63,7 @@ class PetDetail extends React.Component {
         console.log(pet)
         return (
             <div className="container">
+            {console.log(this.state.pet.usuariosInteressados)}
                 <Grid
                     container
                     direction='column'
@@ -66,18 +91,34 @@ class PetDetail extends React.Component {
                             pet.porte === 'M' ? 'médio' : 'grande'
                         }
                     </Typography>
+                    <Typography variant="h7">
+                        Responsável {pet.responsavel}
+                    </Typography>
                     {(pet.responsavel === AuthHelper.getUserId()) ?
-                        ((pet.adotado) ?
-                            <Typography variant="v7"> Um usuário deseja adotar este pet</Typography> :
-                            <Typography variant="v7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) :
-                        <Button
-                            variant="contained"
-                            size="large"
-                            color="primary"
-                            onClick={(event) => this.adotar(event)}
-                            style={{ float: 'right', margin: '10px' }}>
-                            Quero adotar!
-                    </Button>
+                        ((this.state.interessados) ?
+                            <>
+                            <Typography variant="h6">Adotadores interessados:</Typography>
+                            <Typography variant="h7"> {this.state.interessados.
+                                map(user => 
+                                <p> {user.nome} 
+                                <Button variant="contained"
+                                size="small"
+                                color="secundary"
+                                id={user.id}
+                                onClick={() => this.confirmar(user)}
+                                >Confirmar</Button> </p>)}
+                            </Typography> 
+                            </>  :
+                            <Typography variant="h7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) : 
+                              
+                            <Button
+                                variant="contained"
+                                size="large"
+                                color="primary"
+                                onClick={(event) => this.adotar(event)}
+                                style={{ float: 'right', margin: '10px' }}>
+                                Quero adotar!
+                            </Button> 
                     }
 
                 </Grid>
