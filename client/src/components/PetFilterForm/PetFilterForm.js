@@ -3,24 +3,16 @@ import { Radio, FormControl, FormLabel, Grid, RadioGroup, FormControlLabel, Divi
 
 class PetFilterForm extends React.Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <div>
                 <Typography variant="display1" align="center">Mural</Typography>
                 <Grid
-                    container 
-                    justify="space-around" 
-                    direction="column"
-                    >
-                    {console.log(this.props.filterValues)}
-
+                    container
+                    justify="space-around"
+                    direction="column">
                     {this.generateEspecieSelector()}
                     {this.generateSexoSelector()}
-
                 </Grid>
                 <Divider />
             </div>
@@ -38,10 +30,8 @@ class PetFilterForm extends React.Component {
                     onChange={(event) => {
                         this.props.onChangeCallBack(event)
                     }}>
-                    <Grid direction="row">
-                        <FormControlLabel value="cachorro" control={<Radio />} label="Cachorro" />
-                        <FormControlLabel value="gato" control={<Radio />} label="Gato" />
-                    </Grid>
+                    <FormControlLabel value="cachorro" control={<Radio />} label="Cachorro" />
+                    <FormControlLabel value="gato" control={<Radio />} label="Gato" />
                 </RadioGroup>
             </FormControl>
         )
@@ -58,10 +48,8 @@ class PetFilterForm extends React.Component {
                     onChange={(event) => {
                         this.props.onChangeCallBack(event)
                     }}>
-                    <Grid direction="row">
-                        <FormControlLabel value="F" control={<Radio />} label="Fêmea" />
-                        <FormControlLabel value="M" control={<Radio />} label="Macho" />
-                    </Grid>
+                    <FormControlLabel value="F" control={<Radio />} label="Fêmea" />
+                    <FormControlLabel value="M" control={<Radio />} label="Macho" />
                 </RadioGroup>
             </FormControl>
         )
@@ -69,4 +57,3 @@ class PetFilterForm extends React.Component {
 }
 
 export default PetFilterForm;
-
