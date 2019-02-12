@@ -46,6 +46,15 @@ const PetSchema = new Schema({
   adotado: {
     type: Boolean,
     default: false
+  },
+  usuariosInteressados: {
+    type: [Schema.Types.ObjectId],
+    ref: "users",
+    required: false 
+  },
+  processosAdocao: {
+    type: [Schema.ObjectId.Types.ObjectId],
+    ref: "adoptions"
   }
 });
 

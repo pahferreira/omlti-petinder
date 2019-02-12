@@ -13,7 +13,12 @@ const AdoptionSchema = new Schema({
   doador: {
     type: Schema.Types.ObjectId,
     ref: "users"
-  }
+  },
+  adotador: {
+    type: Schema.Types.ObjectId,
+    ref:"usres"
+  },
+  
 });
 
 module.exports = Adoption = mongoose.model("adoptions", AdoptionSchema);
