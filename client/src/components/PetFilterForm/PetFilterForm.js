@@ -6,11 +6,13 @@ class PetFilterForm extends React.Component {
     render() {
         return (
             <div>
-                <Typography variant="display1" align="center">Mural</Typography>
+                <Typography variant="display1" align="center" style={{margin: 30}}>Mural de pets</Typography>
                 <Grid
                     container
-                    justify="space-around"
-                    direction="column">
+                    justify="space-evenly"
+                    alignItems="center"
+                    direction="row"
+                    >
                     {this.generateEspecieSelector()}
                     {this.generateSexoSelector()}
                 </Grid>
@@ -47,7 +49,8 @@ class PetFilterForm extends React.Component {
                     value={this.props.filterValues.sexo}
                     onChange={(event) => {
                         this.props.onChangeCallBack(event)
-                    }}>
+                    }}
+                    className="radio">
                     <FormControlLabel value="F" control={<Radio />} label="Fêmea" />
                     <FormControlLabel value="M" control={<Radio />} label="Macho" />
                 </RadioGroup>

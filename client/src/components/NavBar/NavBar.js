@@ -26,14 +26,19 @@ class NavBar extends Component {
 			<div className="navbar-root">
 				<AppBar position="static">
 					<Toolbar>
-						<IconButton
-							color="inherit"
-							aria-owns={this.state.anchorEl ? "nav-menu" : null}
-							aria-haspopup="true"
-							onClick={this.handleClick}
-						>
-							<MenuIcon />
-						</IconButton>
+						{(() => {
+							if (AuthHelper.isUserLogged())
+								return (
+									<IconButton
+										color="inherit"
+										aria-owns={this.state.anchorEl ? "nav-menu" : null}
+										aria-haspopup="true"
+										onClick={this.handleClick}
+									>
+										<MenuIcon />
+									</IconButton>)
+							else return ''
+						})()}
 						<Menu
 							id="nav-menu"
 							anchorEl={this.state.anchorEl}
