@@ -3,7 +3,6 @@ import PetAvatar from "../../components/PetAvatar/PetAvatar"
 import { Grid, Card } from '@material-ui/core';
 import PetFilterForm from '../../components/PetFilterForm/PetFilterForm'
 import axios from 'axios'
-import './PetMural.css';
 
 export default class PetMural extends React.Component {
 
