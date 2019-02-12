@@ -136,4 +136,6 @@ router.post('/edit', passport.authenticate('jwt', {session: false}), (req, res) 
   });
 });
 
+router.get('/various/:users', UsersController.getVarious);
+
 module.exports = router;
