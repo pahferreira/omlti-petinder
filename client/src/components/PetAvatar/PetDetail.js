@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Grid, Typography, Card, CardMedia, Button } from '@material-ui/core';
+import { Grid, Typography, Card, CardMedia, Button, List } from '@material-ui/core';
 import '../../index.css'
 import AuthHelper from '../../util/AuthHelper'
 
@@ -18,11 +18,8 @@ class PetDetail extends React.Component {
     }
 
     adotar = () => {
+        let pet = { adotado: true }
 
-        
-        let url = "/api/pets/" + this.props.match.params.id
-        let pet = {adotado: true}
-        
         axios({
             method: "post",
             url: "/api/pets/" + this.props.match.params.id,
@@ -44,10 +41,8 @@ class PetDetail extends React.Component {
             <div className="container">
                 <Grid
                     container
-                    spacing={10}
                     direction='column'
-                    alignItems='flex-start'
-                >
+                    alignItems='center'>
                     {pet.fotos ? pet.fotos.map(foto =>
                         <Card style={{ "width": "50%" }}>
                             <CardMedia
@@ -61,26 +56,26 @@ class PetDetail extends React.Component {
                         {pet.nome}
                     </Typography>
                     <Typography variant="h6">
-                        > {pet.descricao}
+                        {pet.descricao}
                     </Typography>
                     <Typography variant="h6">
-                        > {pet.sexo === 'M' ? 'Macho' : 'Fêmea'}
+                        {pet.sexo === 'M' ? 'Macho' : 'Fêmea'}
                     </Typography>
                     <Typography variant="h6">
-                        > Porte {pet.porte === 'P' ? 'pequeno' :
+                        Porte {pet.porte === 'P' ? 'pequeno' :
                             pet.porte === 'M' ? 'médio' : 'grande'
                         }
                     </Typography>
                     {(pet.responsavel === AuthHelper.getUserId()) ?
-                        ( (pet.adotado) ?
-                             <Typography variant="v7"> Um usuário deseja adotar este pet</Typography> :
+                        ((pet.adotado) ?
+                            <Typography variant="v7"> Um usuário deseja adotar este pet</Typography> :
                             <Typography variant="v7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) :
                         <Button
                             variant="contained"
                             size="large"
                             color="primary"
                             onClick={(event) => this.adotar(event)}
-                            style={{ float: 'right' }}>
+                            style={{ float: 'right', margin: '10px' }}>
                             Quero adotar!
                     </Button>
                     }

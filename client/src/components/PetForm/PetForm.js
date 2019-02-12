@@ -40,6 +40,7 @@ class PetForm extends Component {
             data: pet,
             headers: { Authorization: AuthHelper.getToken() }
         }).then((res) => {
+            alert('chegueei')
             if (res.status === 200) {
                 alert("Pet cadastrado com sucesso!");
                 window.location.href = "/";

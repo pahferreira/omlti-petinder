@@ -40,7 +40,9 @@ function ImgMediaCard(props) {
           alt={props.pet.nome}
           className={classes.media}
           height="100"
-          image={props.pet.fotos[0]}
+          image={props.pet.fotos[0] ? 
+            props.pet.fotos[0] : 
+            'https://st2.depositphotos.com/3378121/5471/i/950/depositphotos_54719649-stock-photo-funny-chihuahua-dog.jpg'}
           title={props.pet.nome}
         />
         <CardContent>
@@ -49,7 +51,7 @@ function ImgMediaCard(props) {
 
           </Typography>
           <Typography>
-            {(props.pet.sexo == 'M') ?
+            {(props.pet.sexo === 'M') ?
             (<i className={`fas fa-mars fa-2x ${classes.icon}`}></i>) :
             (<i className={`fas fa-venus fa-2x ${classes.icon}`}></i>)}
 

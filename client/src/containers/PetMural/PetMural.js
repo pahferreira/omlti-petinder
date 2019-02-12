@@ -1,15 +1,16 @@
 import React from "react";
 import PetAvatar from "../../components/PetAvatar/PetAvatar"
-import { Grid } from '@material-ui/core';
+import { Grid, Card } from '@material-ui/core';
 import PetFilterForm from '../../components/PetFilterForm/PetFilterForm'
 import axios from 'axios'
+import './PetMural.css';
 
 export default class PetMural extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.state = { pets: [], visiblePets: [], loading: true, filter: {sexo: null, especie: null}}
-	
+		this.state = { pets: [], visiblePets: [], loading: true, filter: { sexo: null, especie: null } }
+
 		this.requestPets().then(pets => {
 			this.setState({
 				pets
@@ -19,43 +20,47 @@ export default class PetMural extends React.Component {
 	}
 
 	onChangeFilter = (event) => {
-		let filter = this.state.filter 
+		let filter = this.state.filter
 		filter[event.target.name] = event.target.value
 		console.log(filter)
-		this.setState( {'filter': filter})
+		this.setState({ 'filter': filter })
 		console.log(this.state.filter)
 		this.updateVisiblePets()
 	}
 
 	updateVisiblePets() {
 
-		if(this.state.filter.sexo == null && this.state.filter.especie == null)
-			this.setState({visiblePets : this.state.pets})
+		if (this.state.filter.sexo == null && this.state.filter.especie == null)
+			this.setState({ visiblePets: this.state.pets })
 		else {
 			let filtrados = this.state.pets
-			if(this.state.filter.sexo != null) 
+			if (this.state.filter.sexo != null)
 				filtrados = filtrados.filter(pet => pet.sexo === this.state.filter.sexo)
-			if(this.state.filter.especie != null)
-			filtrados = filtrados.filter(pet => pet.especie === this.state.filter.especie)
+			if (this.state.filter.especie != null)
+				filtrados = filtrados.filter(pet => pet.especie === this.state.filter.especie)
 		}
 	}
 
 	buildGrid() {
-		return this.state.visiblePets.map(pet => <Grid container item justify="center" xs={6} sm={3}> <PetAvatar key={pet.nome} pet={pet} /> </Grid>)
+		return this.state.visiblePets.map(pet => 
+			<Grid container justify="space-between" xs={6} sm={3}> 
+				<PetAvatar key={pet.nome} pet={pet} /> 
+			</Grid>
+		)
 	}
 
 	render() {
 		return (
-			<>
-			<PetFilterForm 
-				onChangeCallBack={this.onChangeFilter}
-				filterValues={this.state.filter}/>
-			<Grid container justify="center" alignItems="center" direction="column" >
-				<Grid container item>
-					{this.buildGrid()}
+			<div className="container">
+				<PetFilterForm
+					onChangeCallBack={this.onChangeFilter}
+					filterValues={this.state.filter} />
+				<Grid container justify="center" alignItems="center" direction="column" >
+					<Grid container item>
+						{this.buildGrid()}
+					</Grid>
 				</Grid>
-			</Grid>
-			</>
+			</div>
 		);
 	}
 
@@ -63,9 +68,9 @@ export default class PetMural extends React.Component {
 
 		//let  pets = await fetch("urlPetsProx").them(res => res.json())
 		return axios.get("api/pets/available")
-		.then(response => {
-			console.log(response.data)
-			return response.data
-		})
+			.then(response => {
+				console.log(response.data)
+				return response.data
+			})
 	}
 }

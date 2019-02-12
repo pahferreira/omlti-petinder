@@ -1,5 +1,5 @@
 import React from "react";
-import { Radio, FormControl, FormLabel, RadioGroup, FormControlLabel } from '@material-ui/core';
+import { Radio, FormControl, FormLabel, Grid, RadioGroup, FormControlLabel, Divider, Typography } from '@material-ui/core';
 
 class PetFilterForm extends React.Component {
 
@@ -10,9 +10,19 @@ class PetFilterForm extends React.Component {
     render() {
         return (
             <div>
-                {console.log(this.props.filterValues)}
-                {this.generateEspecieSelector()}
-                {this.generateSexoSelector()}
+                <Typography variant="display1" align="center">Mural</Typography>
+                <Grid
+                    container 
+                    justify="space-around" 
+                    direction="column"
+                    >
+                    {console.log(this.props.filterValues)}
+
+                    {this.generateEspecieSelector()}
+                    {this.generateSexoSelector()}
+
+                </Grid>
+                <Divider />
             </div>
         );
     }
@@ -28,8 +38,10 @@ class PetFilterForm extends React.Component {
                     onChange={(event) => {
                         this.props.onChangeCallBack(event)
                     }}>
-                    <FormControlLabel value="cachorro" control={<Radio />} label="Cachorro" />
-                    <FormControlLabel value="gato" control={<Radio />} label="Gato" />
+                    <Grid direction="row">
+                        <FormControlLabel value="cachorro" control={<Radio />} label="Cachorro" />
+                        <FormControlLabel value="gato" control={<Radio />} label="Gato" />
+                    </Grid>
                 </RadioGroup>
             </FormControl>
         )
@@ -46,8 +58,10 @@ class PetFilterForm extends React.Component {
                     onChange={(event) => {
                         this.props.onChangeCallBack(event)
                     }}>
-                    <FormControlLabel value="F" control={<Radio />} label="Femea" />
-                    <FormControlLabel value="M" control={<Radio />} label="Macho" />
+                    <Grid direction="row">
+                        <FormControlLabel value="F" control={<Radio />} label="Fêmea" />
+                        <FormControlLabel value="M" control={<Radio />} label="Macho" />
+                    </Grid>
                 </RadioGroup>
             </FormControl>
         )
