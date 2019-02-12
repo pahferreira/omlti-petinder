@@ -18,7 +18,11 @@ class PetDetail extends React.Component {
     }
 
     adotar = () => {
-        let pet = { adotado: true }
+
+        let interessados = this.state.pet.usuariosInteressados
+        if(!interessados) interessados = []
+        interessados.push(AuthHelper.getUserId())
+        let pet = { usuariosInteressados: interessados }
 
         axios({
             method: "post",
@@ -67,17 +71,18 @@ class PetDetail extends React.Component {
                         }
                     </Typography>
                     {(pet.responsavel === AuthHelper.getUserId()) ?
-                        ((pet.adotado) ?
-                            <Typography variant="v7"> Um usuário deseja adotar este pet</Typography> :
-                            <Typography variant="v7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) :
-                        <Button
-                            variant="contained"
-                            size="large"
-                            color="primary"
-                            onClick={(event) => this.adotar(event)}
-                            style={{ float: 'right', margin: '10px' }}>
-                            Quero adotar!
-                    </Button>
+                        ((pet.usuariosInteressados) ?
+                        <Typography variant="v7"> {this.state.pet.usuariosInteressados.map(user => <p> user </p>)}</Typography> :
+                            <Typography variant="v7"> Nenhum usuário mostrou interesse no pet ainda</Typography>) : 
+                              
+                            <Button
+                                variant="contained"
+                                size="large"
+                                color="primary"
+                                onClick={(event) => this.adotar(event)}
+                                style={{ float: 'right', margin: '10px' }}>
+                                Quero adotar!
+                            </Button> 
                     }
 
                 </Grid>

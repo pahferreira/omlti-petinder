@@ -53,7 +53,7 @@ const PetSchema = new Schema({
     required: false 
   },
   processosAdocao: {
-    type: [Schema.ObjectId.Types.ObjectId],
+    type: [Schema.Types.ObjectId],
     ref: "adoptions"
   }
 });

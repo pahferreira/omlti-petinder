@@ -62,7 +62,7 @@ router.post("/login", (req, res) => {
   const password = req.body.senha;
   User.findOne({email})
     .then(user => {
-      if (!user) res.status(400).json({error: "Usuário não encontrado."});
+      if (!user || user == null) res.status(400).json({error: "Usuário não encontrado."});
       bcrypt.compare(password, user.senha)
         .then(isMatch => {
           if (!isMatch) res.status(400).json({error: "Senha incorreta."});

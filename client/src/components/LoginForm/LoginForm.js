@@ -30,8 +30,14 @@ class LoginForm extends Component {
         if (response.status === 400) {
           window.alert('Algo deu errado, tente novamente.')
         }
+        if(response.status === 500) {
+          window.alert('Erro interno')
+        }
       })
-      .catch(response => console.log(response));
+      .catch(response => {
+        console.log(response)
+        window.alert('Algo deu errado, tente novamente')
+      });
   };
 
   onChange = event =>
